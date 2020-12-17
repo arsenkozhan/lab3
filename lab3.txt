@@ -1,0 +1,10 @@
+#create instances
+aws ec2 run-instances --image-id ami-09558250a3419e7d0 --instance-type t2.micro --count 1 --security-group-ids sg-0015b871  --key-name MyKeyPair --user-data file://apach.txt
+
+
+# get instances_id by filter tag value "Web2"
+aws ec2 describe-instances --filters Name=tag-value,Values=Web2 --query Reservations[*].Instances[*].[InstanceId] --output text
+
+
+#create imge by instances_id
+aws ec2 create-image --instance-id i-0a7c7327f29b82cae --name "MyApachServerAMI" --description "Create Apach Server with my html"
